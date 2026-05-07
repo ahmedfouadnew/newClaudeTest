@@ -1,4 +1,63 @@
 FRC_SEASONS = {
+    "2026": {
+        "name": "Rebuilt",
+        "year": 2026,
+        "type": "FRC",
+        "context": """
+FRC 2026 REBUILT™ presented by Haas — Season Overview
+=======================================================
+Game: REBUILT (archaeology/discovery theme)
+Field: Two alliances (red/blue) of 3 robots each.
+
+GAME PIECE:
+- FUEL: 5.91in (15cm) diameter high-density foam ball. Robots may control any number at once.
+
+KEY FIELD ELEMENTS:
+- HUB: Central structure where FUEL is scored through a top opening and sensor array. Each alliance has its own HUB. HUBs alternate between ACTIVE (scores points) and INACTIVE (no points) during ALLIANCE SHIFTS based on AUTO results.
+- TOWER: Climbing structure with three levels — LEVEL 1 (not touching carpet/base), LEVEL 2 (bumper above LOW RUNG), LEVEL 3 (bumper above MID RUNG). Located at each alliance's end.
+- TRENCH: Low horizontal structure robots can pass under; has AprilTags on top arm.
+- DEPOT: Field area where robots can collect FUEL.
+- OUTPOST: Human player station with CHUTE and CORRAL openings for loading FUEL onto the field.
+- BUMP: Obstacle robots must cross in the center of the field.
+- ALLIANCE WALL: Driver station wall.
+
+MATCH PERIODS:
+- AUTO (20s): Both HUBs active. Robots score FUEL and may climb TOWER (Level 1 only, max 2 robots per alliance).
+- TELEOP (2m 20s total):
+  - TRANSITION SHIFT (10s): Both HUBs active.
+  - ALLIANCE SHIFTS (4 × 25s = 100s): HUBs alternate active/inactive. The alliance that scored MORE FUEL in AUTO has their HUB INACTIVE first (SHIFT 1); then alternates every shift. Defensive strategy typically used when your HUB is inactive.
+  - END GAME (last 30s): Both HUBs active again; robots climb TOWER for bonus points.
+
+SCORING (point values):
+- FUEL in active HUB (AUTO): 1 pt per FUEL
+- FUEL in active HUB (TELEOP): 1 pt per FUEL
+- FUEL in inactive HUB: 0 pts
+- Tower Level 1 AUTO (max 2 robots per alliance): 15 pts each
+- Tower Level 1 TELEOP: 10 pts each
+- Tower Level 2 TELEOP: 20 pts each
+- Tower Level 3 TELEOP: 30 pts each
+
+RANKING POINTS (RP): Win=3, Tie=1, Loss=0.
+- ENERGIZED RP: FUEL scored in active HUB ≥ 100 (Regional/District), 240 (District Championship), 360 (Championship).
+- SUPERCHARGED RP: FUEL scored ≥ 360 (Regional/District), 360 (District Championship), 500 (Championship).
+- TRAVERSAL RP: Total TOWER points ≥ 50 points.
+
+HUB ACTIVATION STRATEGY:
+The alliance that wins AUTO (scores more FUEL) gets their HUB set INACTIVE during SHIFT 1 — a built-in balancing mechanic. Teams that dominate AUTO must pivot to defense or collecting fuel during their inactive shifts.
+
+COMMON MECHANISMS:
+- Ground intake: Compliant-wheel or belted rollers to pick up foam FUEL balls from the floor.
+- Shooter: Flywheel or catapult to launch FUEL into the HUB from a distance; hood angle + wheel velocity tuning needed.
+- Climber: Multi-level hook-and-winch or telescoping arm to reach Level 2 (LOW RUNG) or Level 3 (MID RUNG) on TOWER. Level 3 is highest value (30 pts) and pairs with TRAVERSAL RP.
+- Human player feed: Robots may position near OUTPOST CHUTE/CORRAL to receive FUEL from human players.
+
+PROGRAMMING NOTES:
+- AprilTags on HUB (IDs 2,3,4,5,8,9,10,11,18,19,20,21,24,25,26,27), TOWER WALL (15,16,31,32), OUTPOST (13,14,29,30), and TRENCH (1,6,7,12,17,22,23,28) — all 36h11 tag family.
+- HUB scoring is sensor-based (ball passes through opening + sensor array); autonomous HUB targeting with Limelight/PhotonVision on HUB AprilTags is effective.
+- AUTO strategy: scoring more FUEL than opponent wins auto advantage BUT activates the HUB-inactive penalty in SHIFT 1 — teams must weigh this tradeoff.
+- Swerve drive dominant; PathPlanner/Choreo for auto paths navigating BUMP and TRENCH.
+""",
+    },
     "2025": {
         "name": "Reefscape",
         "year": 2025,
