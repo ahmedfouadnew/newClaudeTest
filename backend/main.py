@@ -92,6 +92,23 @@ TBA_TOOLS = [
             "required": ["team_number", "year"],
         },
     },
+    {
+        "name": "get_team_season_summary",
+        "description": (
+            "Get a complete season summary for an FRC team: all events attended, "
+            "their ranking and win/loss record at each event, playoff results, and awards. "
+            "Use this whenever the user asks about a team's performance, season, results, or history "
+            "for a specific year. Prefer this over calling get_team_events + get_team_event_status separately."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "team_number": {"type": "integer", "description": "FRC team number"},
+                "year": {"type": "integer", "description": "Season year, e.g. 2026"},
+            },
+            "required": ["team_number", "year"],
+        },
+    },
 ]
 
 

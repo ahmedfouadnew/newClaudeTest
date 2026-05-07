@@ -272,10 +272,27 @@ def get_season_list():
 
 def get_system_prompt(season_id: str) -> str:
     season = ALL_SEASONS.get(season_id)
-    if not season:
-        base_context = "No specific season selected."
+    season_year = season["year"] if season else None
+    season_type = season["type"] if season else None
+
+    season_block = ""
+    if season:
+        season_block = f"""
+SELECTED SEASON: {season['type']} {season['year']} — {season['name']}
+The user is currently focused on this season. All game-specific questions should be answered in this context.
+
+{season['context']}"""
+
+    data_instruction = ""
+    if season_type == "FRC":
+        data_instruction = f"""
+LIVE DATA (The Blue Alliance):
+- The current season year is {season_year}. When the user asks about a team's performance, season, events, rankings, or results, ALWAYS call get_team_season_summary with year={season_year} unless they explicitly ask about a different year.
+- Do not answer team performance questions from memory — fetch real data first.
+- For event rankings or team lists, use get_event_rankings or get_event_teams with the appropriate event key."""
     else:
-        base_context = season["context"]
+        data_instruction = """
+LIVE DATA: You can fetch FRC team data via The Blue Alliance tools. FTC data integration is coming soon."""
 
     return f"""You are an expert FIRST Robotics assistant specializing in both FRC (FIRST Robotics Competition) and FTC (FIRST Tech Challenge). You help students, mentors, and teams with:
 - Robot design and mechanism selection
@@ -283,12 +300,11 @@ def get_system_prompt(season_id: str) -> str:
 - Game strategy and scoring optimization
 - Rules clarification and interpretation
 - Scouting and data analysis
-
-{f"CURRENT SEASON CONTEXT:{base_context}" if season else ""}
+{season_block}
+{data_instruction}
 
 Guidelines:
 - Be specific and practical. When discussing mechanisms, mention real-world tradeoffs (weight, complexity, reliability).
 - When discussing programming, reference WPILib (FRC) or FTC SDK conventions.
-- If asked about statistics or team data, let the user know you can fetch live data from The Blue Alliance (FRC) or FTC Events API when they provide a team number or event code.
 - Always clarify FRC vs FTC distinctions when relevant — they have different rules, field sizes, and constraints.
 - Keep answers focused and actionable for build season timelines."""
